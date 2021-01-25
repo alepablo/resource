@@ -1,8 +1,8 @@
-//Declaro  matriz y la incializo
-const N=3;//dimencion
+//Declaro  matriz del juego y la inicializo
+const N=3;//dimencion del tablero
 const cantJugadores=2;//jugadores
 var contJugador=new Array(cantJugadores);
-var coloresVector=["White","Black","Red"];//colores
+var coloresVector=["White","Black","Red"];//colores disponibles
 var Jugador;
 var matrix = [];
 
@@ -15,7 +15,7 @@ const asignarPos=(idBoton)=>{
     let col;
     fila=parseInt((idBoton-1)/N);
     col=(idBoton-1)%N;
-    //Asigna a jugador la posicion
+//Asigna a jugador la posicion
     return[fila,col];
 }
 const asignarValor=(posicion,Jugador)=>{
@@ -55,8 +55,7 @@ const verificacionFilas=()=>
     for(let m=0;m<cantJugadores;m++)
      if(contJugador[m]==N) 
      {
-        return [m+1,i+1];}      // return jugador-fila ganadora
-   // console.log(contJugador); 
+        return [m+1,i+1];}  // return jugador-fila ganadora
     for(let k =0;k<cantJugadores;k++) contJugador[k]=0;   
     }
     return 0;
@@ -77,14 +76,13 @@ const verificacionColumnas=()=>
             auxmatrix[j][i]=temp;
         }
     }
-    //(matrix,auxmatrix);
     let contJugador=new Array(cantJugadores);
     for(let i =0;i<cantJugadores;i++) contJugador[i]=0; 
 //Verifica Victoria fila
     for(let i =0;i<N;i++) 
     {
         if(auxmatrix[i].includes(0)==false)
-        {//console.log("Entro!");
+        {
             for(let j=0;j<N;j++)
             {for(let l=0;l<cantJugadores;l++) 
                 if((l+1)==auxmatrix[i][j])
@@ -141,7 +139,7 @@ for(let k =0;k<cantJugadores;k++) contJugador[k]=0;
 
         }
     }
-    //console.log(contJugador,matrix);
+  
 
 return 0;
 
@@ -179,7 +177,7 @@ const ResolucionJuego=()=>{
         console.log("Empate");
         return 1//Empate
 }
-const gameStart =(element)=>{
+const inicioJuego =(element)=>{
     
     Jugador=(conJugada)%cantJugadores+1;//determino jugador
     console.log("Jugador: "+Jugador);
@@ -189,19 +187,17 @@ const gameStart =(element)=>{
     if(asignarValor(posicion,Jugador)===true)
     {   
         colorear(idBoton,Jugador);
-        //console.log(matrix,conJugada);//Casilla ocupada por jugador
         conJugada++;
         let EstadoJuego=ResolucionJuego()
         if(EstadoJuego==2||EstadoJuego==1) terminarJuego();
     }
     else
-        console.log(matrix,conJugada);//Casilla ya ocupada por jugador
+        console.log(matrix,conJugada);//Casilla ya ocupada por otro jugador
 
            
 }
 const terminarJuego=()=>
 {
-    //window.console.clear();
     const botones=document.getElementsByClassName("boton")
     console.log("Game Over");
     for(boton of botones)
@@ -216,7 +212,7 @@ function start(){
     
     for(boton of botones)
     {
-        boton.addEventListener("click",gameStart);
+        boton.addEventListener("click",inicioJuego);
     }
 
 }
