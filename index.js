@@ -202,7 +202,7 @@ const terminarJuego=()=>
     console.log("Game Over");
     for(boton of botones)
     {
-        boton.removeEventListener("click",gameStart);
+        boton.removeEventListener("click",inicioJuego);
     }
 }
 
