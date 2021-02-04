@@ -406,12 +406,9 @@ if(event.target.id==="Circulo")
 for(boton of botones) boton.style.borderRadius="50px";
     
 }
-function start(){
+function start(){}
 
-  
-  
 
-}
 
 
 
