@@ -1,13 +1,13 @@
 //Declaro  matriz del juego y la inicializo
-const N=3;//dimencion del tablero
-const cantJugadores=2;//jugadores
-var contJugador=new Array(cantJugadores);
-var coloresVector=["White","Black","Red"];//colores disponibles
+var N=3;//dimencion del tablero
+var cantJugadores=2;//jugadores
+
+var coloresVector=["White","Black","Red","Blue"];//colores disponibles
 var Jugador;
 var matrix = [];
 
-for(let i =0;i<N;i++) matrix[i]=new Array(N);
-for(let i =0;i<N;i++) for(let j =0;j<N;j++) matrix[i][j]=0;
+var contJugador;
+
 let conJugada=0;
 
 const asignarPos=(idBoton)=>{
@@ -149,13 +149,16 @@ const ResolucionJuego=()=>{
     if(resultado!=0) 
     {window.console.clear();
     console.log(`Ganador Jugador ${resultado[0]} Columna: ${resultado[1]}`);
+    document.getElementById("Estado").innerText=`Ganador: Jugador ${resultado[0]}`;
       return 2;
     }
     resultado=verificacionFilas();
     if(resultado!=0) 
     {
      window.console.clear();
+
     console.log(`Ganador Jugador ${resultado[0]} Fila: ${resultado[1]}`);
+    document.getElementById("Estado").innerText=`Ganador: Jugador ${resultado[0]}`;
       return 2;
     }
     resultado=verificacionDiagonales();
@@ -163,6 +166,7 @@ const ResolucionJuego=()=>{
     {
     window.console.clear();
     console.log(`Ganador Jugador ${resultado[0]} Diagonal: ${resultado[1]}`);
+    document.getElementById("Estado").innerText=`Ganador: Jugador ${resultado[0]}`;
       return 2;
     }
 
@@ -175,6 +179,7 @@ const ResolucionJuego=()=>{
         }
         window.console.clear();
         console.log("Empate");
+        document.getElementById("Estado").innerText=`Empate`;
         return 1//Empate
 }
 const inicioJuego =(element)=>{
@@ -204,16 +209,209 @@ const terminarJuego=()=>
     {
         boton.removeEventListener("click",inicioJuego);
     }
+    
 }
 
+const selTab =(event)=>{
 
-function start(){
-    const botones=document.getElementsByClassName("boton");
+   // console.log(event);
+    if(event.target.id=="Tablero3x3")
+    {   console.log("Se selecciono tablero 3x3");
+        N=3;}
+    if(event.target.id=="Tablero4x4")
+    { 
+        console.log("Se selecciono tablero 4x4");
+        N=4;
+    }
+}
+const selJug=(event)=>{
+
+    const numeroJugador=event.target.options.selectedIndex
+    if(numeroJugador==1)
+    {   console.log("Se selecciono 2 jugadores");
+        cantJugadores=2;
+    }
+    if(numeroJugador==2) 
+    {console.log("Se selecciono 3 jugadores");
+     cantJugadores=3;
+    }
+    if(numeroJugador==3) 
+    {console.log("Se selecciono 4 juagadores");
+    cantJugadores=4;
+    }
+}
+const selCol=(event)=>{
+    const jugador=event.target.id;
+    const color=event.target.value;
+    if(jugador==="color1")
+    {
+        coloresVector[0]=color;
+        console.log(`Se selecciono para el jugador1 el color ${color}`);
+    } 
+    if(jugador==="color2")
+    {
+         console.log(`Se selecciono para el jugador2 el color ${color}`);
+         coloresVector[1]=color;
+        }
+    if(jugador==="color3") 
+    {console.log(`Se selecciono para el jugador3 el color ${color}`);
+    coloresVector[2]=color;
+
+    }
+    if(jugador==="color4")
+    { console.log(`Se selecciono para el jugador4 el color ${color}`);
+    coloresVector[3]=color;
+    }
     
+    
+}
+
+function iniciar(event){
+
+    const contenedor=document.getElementById("contenedor");
+    console.log(event.target.outerText);
+    if(event.target.outerText=="Iniciar")
+    {  event.target.innerText="Reiniciar";
+    
+    
+        
+
+if(N===3) contenedor.innerHTML=`
+        <div class="row justify-content-center">
+            <div id="1"class="col-3 boton m-1"></div>
+            <div id="2"class="col-3 boton m-1"></div>
+            <div id="3"class="col-3 boton m-1"></div>
+        </div>
+        <div class="row justify-content-center">
+            <div id="4"class="col-3 boton m-1"></div>
+            <div id="5"class="col-3 boton m-1"></div>
+            <div id="6"class="col-3 boton m-1"></div>
+        </div>
+        <div class="row justify-content-center">
+            <div id="7"class="col-3 boton m-1"></div>
+            <div id="8"class="col-3 boton m-1"></div>
+            <div id="9"class="col-3 boton m-1"></div>
+        </div>
+<div class="row justify-content-center">
+<div class="col-10 m-2 ">
+<form method="post" action="#"" >
+<label >Cuadrado</label>
+<input type="radio" name="forma" value="Cuadrado" id="Cuadrado" onchange="circulos(event)"/>
+<label >Circulo</label>
+<input type="radio" name="forma" value="Circulo" id="Circulo" onchange="circulos(event)" />
+</form>
+</div>
+</div>
+        `
+if(N===4)contenedor.innerHTML=`
+<div class="row justify-content-center">
+    <div id="1"class="col-2 boton m-1"></div>
+    <div id="2"class="col-2 boton m-1"></div>
+    <div id="3"class="col-2 boton m-1"></div>
+    <div id="4"class="col-2 boton m-1"></div>
+</div>
+<div class="row justify-content-center">
+    <div id="5"class="col-2 boton m-1"></div>
+    <div id="6"class="col-2 boton m-1"></div>
+    <div id="7"class="col-2 boton m-1"></div>
+    <div id="8"class="col-2 boton m-1"></div>
+</div>
+<div class="row justify-content-center">
+    <div id="9"class="col-2 boton m-1"></div>
+    <div id="10"class="col-2 boton m-1"></div>
+    <div id="11"class="col-2 boton m-1"></div>
+    <div id="12"class="col-2 boton m-1"></div>
+</div>
+<div class="row justify-content-center">
+    <div id="13"class="col-2 boton m-1"></div>
+    <div id="14"class="col-2 boton m-1"></div>
+    <div id="15"class="col-2 boton m-1"></div>
+    <div id="16"class="col-2 boton m-1"></div>
+</div>
+           
+<form method="post" action="#"" >
+<label >Cuadrado</label>
+<input type="radio" name="forma" value="Cuadrado" id="Cuadrado" onchange="circulos(event)"/>
+<label >Circulo</label>
+<input type="radio" name="forma" value="Circulo" id="Circulo" onchange="circulos(event)" />
+</form>
+</div>
+</div>
+`
+menu.innerHTML="";
+//menu.innerHTML=`<p> La cantidad de jugadores es ${cantJugadores},tablero de ${N}x${N} y colores ${coloresVector.join(",")}</p>`
+contJugador=new Array(cantJugadores);
+for(let i =0;i<N;i++) matrix[i]=new Array(N);
+for(let i =0;i<N;i++) for(let j =0;j<N;j++) matrix[i][j]=0;
+const botones=document.getElementsByClassName("boton");
+   
+
     for(boton of botones)
     {
         boton.addEventListener("click",inicioJuego);
     }
+
+}
+else
+    {
+    document.getElementById("Estado").innerText=`Estado del juego`;
+      const menu=document.getElementById("menu");
+      menu.innerHTML=`
+      <label >Cuadrado</label>
+            <input type="radio" name="forma" value="Cuadrado" id="Cuadrado" onchange="circulos(event)"/>
+            <label >Circulo</label>
+            <input type="radio" name="forma" value="Circulo" id="Circulo" onchange="circulos(event)" />
+        </br>
+        <label>Elija el tipo de tablero: </label>
+                
+        <label >3x3</label>
+        <input type="radio" name="tipo" value="3x3" id="Tablero3x3" onchange="selTab(event)"/>
+        <label >4x4</label>
+        <input type="radio" name="tipo" value="4x4" id="Tablero4x4" onchange="selTab(event)" />
+            </br>
+        <label>Elija el numero de jugadores: </label>
+  
+      <select id="jugadores" onchange="selJug(event)">
+            <option id="jugador0" ></option>
+            <option id="jugador2" >2 jugadores</option>
+            <option id="jugador3" >3 jugadores</option>
+            <option id="jugador4" >4 jugadores</option>
+        </select>
+        </br>
+             <label for="color1">Jugador 1 </label> 
+            <input type="color" id="color1" required value="#ff0000" onchange="selCol(event)" />
+            <label for="color2">Jugador 2 </label> 
+            <input type="color" id="color2" required value="#00ff00" onchange="selCol(event)"/>
+            <label for="color3">Jugador 3 </label>
+            <input type="color" id="color3" required value="#0000ff" onchange="selCol(event)"/>
+            <label for="color4">Jugador 4 </label> 
+            <input type="color" id="color4" required value="#ffff00" onchange="selCol(event)"/>
+        </br>
+      
+      `
+        contenedor.innerHTML="";
+
+        event.target.innerHTML="Iniciar";
+    }
+
+}
+
+function circulos(event)
+{
+    const botones=document.getElementsByClassName("boton");
+   
+console.log(event);
+if(event.target.id==="Cuadrado")
+for(boton of botones) boton.style.borderRadius="0%";
+
+if(event.target.id==="Circulo")
+for(boton of botones) boton.style.borderRadius="50px";
+    
+}
+function start(){
+
+  
+  
 
 }
 
