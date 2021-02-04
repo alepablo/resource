@@ -293,7 +293,7 @@ if(N===3) contenedor.innerHTML=`
             <div id="9"class="col-3 boton m-1"></div>
         </div>
 <div class="row justify-content-center">
-<div class="col-10 m-2 ">
+<div class="col-8 m-2 ">
 <form method="post" action="#"" >
 <label >Cuadrado</label>
 <input type="radio" name="forma" value="Cuadrado" id="Cuadrado" onchange="circulos(event)"/>
@@ -329,6 +329,8 @@ if(N===4)contenedor.innerHTML=`
     <div id="16"class="col-2 boton m-1"></div>
 </div>
            
+<div class="row justify-content-center">
+<div class="col-8 m-2 ">
 <form method="post" action="#"" >
 <label >Cuadrado</label>
 <input type="radio" name="forma" value="Cuadrado" id="Cuadrado" onchange="circulos(event)"/>
