@@ -359,11 +359,7 @@ else
     document.getElementById("Estado").innerText=`Estado del juego`;
       const menu=document.getElementById("menu");
       menu.innerHTML=`
-      <label >Cuadrado</label>
-            <input type="radio" name="forma" value="Cuadrado" id="Cuadrado" onchange="circulos(event)"/>
-            <label >Circulo</label>
-            <input type="radio" name="forma" value="Circulo" id="Circulo" onchange="circulos(event)" />
-        </br>
+     
         <label>Elija el tipo de tablero: </label>
                 
         <label >3x3</label>
